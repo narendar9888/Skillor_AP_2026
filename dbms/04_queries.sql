@@ -4,12 +4,14 @@
 -- ============================================================
 
 -- Q1. Display all registered users.
+-- READ
 
 SELECT *
 FROM USERS;
 
 
 -- Q2. Display user details using user ID.
+-- READ
 
 SELECT
     id,
@@ -24,6 +26,7 @@ WHERE id = 1;
 
 
 -- Q3. Display all available skills.
+-- READ
 
 SELECT *
 FROM SKILLS
@@ -31,6 +34,7 @@ ORDER BY skill_name ASC;
 
 
 -- Q4. Display all teaching skills.
+-- READ
 
 SELECT
     id,
@@ -44,6 +48,7 @@ WHERE skill_type = 'teach';
 
 
 -- Q5. Display all learning skills.
+-- READ
 
 SELECT
     id,
@@ -57,6 +62,7 @@ WHERE skill_type = 'learn';
 
 
 -- Q6. Display all active matches.
+-- READ
 
 SELECT *
 FROM MATCHES
@@ -64,6 +70,7 @@ WHERE status = 'active';
 
 
 -- Q7. Display all pending exchange requests.
+-- READ
 
 SELECT *
 FROM EXCHANGE_REQUESTS
@@ -71,6 +78,7 @@ WHERE status = 'pending';
 
 
 -- Q8. Display all unread notifications.
+-- READ
 
 SELECT *
 FROM NOTIFICATIONS
@@ -82,6 +90,7 @@ WHERE is_read = FALSE;
 -- ============================================================
 
 -- Q9. Find users from a particular location.
+-- READ
 
 SELECT
     id,
@@ -93,6 +102,7 @@ WHERE location = 'Delhi';
 
 
 -- Q10. Display users in descending order of rating.
+-- READ
 
 SELECT
     id,
@@ -103,6 +113,7 @@ ORDER BY rating DESC NULLS LAST;
 
 
 -- Q11. Display all distinct skill names.
+-- READ
 
 SELECT DISTINCT skill_name
 FROM SKILLS
@@ -110,6 +121,7 @@ ORDER BY skill_name;
 
 
 -- Q12. Find users with a rating greater than 4.
+-- READ
 
 SELECT
     id,
@@ -126,6 +138,7 @@ ORDER BY rating DESC;
 
 -- Q13. Display users along with their teaching and
 -- learning skills.
+-- READ
 
 SELECT
     u.id AS user_id,
@@ -143,6 +156,7 @@ ORDER BY u.name;
 
 
 -- Q14. Find users who can teach a particular skill.
+-- READ
 
 SELECT
     u.id AS user_id,
@@ -163,6 +177,7 @@ ORDER BY u.rating DESC NULLS LAST;
 
 
 -- Q15. Find users who want to learn a particular skill.
+-- READ
 
 SELECT
     u.id AS user_id,
@@ -179,6 +194,7 @@ WHERE s.skill_name = 'Python'
 
 
 -- Q16. Display matches with both users' names.
+-- READ
 
 SELECT
     m.id AS match_id,
@@ -194,6 +210,7 @@ JOIN USERS u2
 
 
 -- Q17. Display exchange requests with sender and skill details.
+-- READ
 
 SELECT
     er.id AS request_id,
@@ -213,6 +230,7 @@ JOIN SKILLS s2
 
 
 -- Q18. Display conversations with their associated matches.
+-- READ
 
 SELECT
     c.id AS conversation_id,
@@ -228,6 +246,7 @@ JOIN MATCHES m
 
 
 -- Q19. Display messages with sender information.
+-- READ
 
 SELECT
     msg.id AS message_id,
@@ -242,6 +261,7 @@ ORDER BY msg.sent_at ASC;
 
 
 -- Q20. Display reviews with reviewer and reviewee names.
+-- READ
 
 SELECT
     r.id AS review_id,
@@ -258,6 +278,7 @@ JOIN USERS u2
 
 
 -- Q21. Display notifications with user information.
+-- READ
 
 SELECT
     n.id AS notification_id,
@@ -277,18 +298,21 @@ ORDER BY n.created_at DESC;
 -- ============================================================
 
 -- Q22. Count the total number of registered users.
+-- READ
 
 SELECT COUNT(*) AS total_users
 FROM USERS;
 
 
 -- Q23. Count the total number of skills.
+-- READ
 
 SELECT COUNT(*) AS total_skills
 FROM SKILLS;
 
 
 -- Q24. Count the number of users associated with each skill.
+-- READ
 
 SELECT
     s.skill_name,
@@ -301,6 +325,7 @@ ORDER BY total_users DESC;
 
 
 -- Q25. Find the average user rating.
+-- READ
 
 SELECT
     ROUND(AVG(rating)::numeric, 2) AS average_user_rating
@@ -309,6 +334,7 @@ WHERE rating IS NOT NULL;
 
 
 -- Q26. Find the highest and lowest user ratings.
+-- READ
 
 SELECT
     MAX(rating) AS highest_rating,
@@ -317,6 +343,7 @@ FROM USERS;
 
 
 -- Q27. Count the total number of matches by status.
+-- READ
 
 SELECT
     status,
@@ -326,6 +353,7 @@ GROUP BY status;
 
 
 -- Q28. Count exchange requests by status.
+-- READ
 
 SELECT
     status,
@@ -335,6 +363,7 @@ GROUP BY status;
 
 
 -- Q29. Find the most popular teaching skills.
+-- READ
 
 SELECT
     s.skill_name,
@@ -349,6 +378,7 @@ LIMIT 10;
 
 
 -- Q30. Calculate average review rating for each user.
+-- READ
 
 SELECT
     u.id,
@@ -367,6 +397,7 @@ ORDER BY average_rating DESC NULLS LAST;
 -- ============================================================
 
 -- Q31. Display skills having more than one associated user.
+-- READ
 
 SELECT
     s.skill_name,
@@ -379,6 +410,7 @@ HAVING COUNT(us.user_id) > 1;
 
 
 -- Q32. Display users who have received more than one review.
+-- READ
 
 SELECT
     u.id,
@@ -396,6 +428,7 @@ HAVING COUNT(r.id) > 1;
 -- ============================================================
 
 -- Q33. Find users whose rating is above the average rating.
+-- READ
 
 SELECT
     id,
@@ -410,6 +443,7 @@ WHERE rating > (
 
 
 -- Q34. Find users who have at least one active match.
+-- READ
 
 SELECT
     id,
@@ -424,6 +458,7 @@ WHERE EXISTS (
 
 
 -- Q35. Find skills that have at least one teacher.
+-- READ
 
 SELECT
     id,
@@ -438,6 +473,7 @@ WHERE EXISTS (
 
 
 -- Q36. Find users who have not received any reviews.
+-- READ
 
 SELECT
     id,
@@ -455,6 +491,7 @@ WHERE NOT EXISTS (
 -- ============================================================
 
 -- Q37. Insert a new skill into the platform.
+-- WRITE
 
 INSERT INTO SKILLS (
     skill_name,
@@ -472,6 +509,7 @@ RETURNING *;
 
 
 -- Q38. Add a teaching skill to a user.
+-- WRITE
 
 INSERT INTO USER_SKILLS (
     user_id,
@@ -491,6 +529,7 @@ RETURNING *;
 
 
 -- Q39. Add a learning skill to a user.
+-- WRITE
 
 INSERT INTO USER_SKILLS (
     user_id,
@@ -514,6 +553,7 @@ RETURNING *;
 -- ============================================================
 
 -- Q40. Update a user's profile information.
+-- WRITE
 
 UPDATE USERS
 SET
@@ -526,6 +566,7 @@ RETURNING *;
 
 
 -- Q41. Update the status of an exchange request.
+-- WRITE
 
 UPDATE EXCHANGE_REQUESTS
 SET status = 'accepted'
@@ -534,6 +575,7 @@ RETURNING *;
 
 
 -- Q42. Mark a notification as read.
+-- WRITE
 
 UPDATE NOTIFICATIONS
 SET is_read = TRUE
@@ -542,6 +584,7 @@ RETURNING *;
 
 
 -- Q43. Mark a message as read.
+-- WRITE
 
 UPDATE MESSAGES
 SET is_read = TRUE
@@ -554,6 +597,7 @@ RETURNING *;
 -- ============================================================
 
 -- Q44. Remove a skill association from a user's profile.
+-- WRITE
 
 DELETE FROM USER_SKILLS
 WHERE user_id = 1
@@ -563,6 +607,7 @@ RETURNING *;
 
 
 -- Q45. Delete a notification belonging to a user.
+-- WRITE
 
 DELETE FROM NOTIFICATIONS
 WHERE id = 1
@@ -570,6 +615,4 @@ WHERE id = 1
 RETURNING *;
 
 
--- ============================================================
--- END OF CP3: SKILLOR SQL QUERIES
--- ============================================================
+
